@@ -2,7 +2,7 @@ import sys
 import os
 from collections import Counter
 
-PUNCTUATION_SET = ('.', ',', ':', '(', ')', '#', ' - ', '[',']', '"', '@', '—')
+PUNCTUATION_SET = ('.', ',', ':', '(', ')', '#', ' - ', '[',']', '"', '@', '—', ';')
 
 def load_data_from_file(filepath):
     with open(filepath, 'r') as file_object:
