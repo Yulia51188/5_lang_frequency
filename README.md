@@ -1,7 +1,27 @@
-# Frequency Analysis of Words
+# Частотнй анализ слов
 
-[TODO. There will be project description]
+Программа в указанном текстовом файле в кодировке utf-8 находит наиболее часто встречающиеся слова и выводт список из 10 слов с указанием количества повторений.
 
-# Project Goals
+# Запуск программы
+
+Имя файл формата txt в кодировке utf-8 передается как аргумент командной строки.
+Необходим установленный интерпретатор python 3.5. Скрипт протестирован для работы с файлами на русском и английском языках.
+
+Запуск в Linux выглядит следующим образом:
+
+```bash
+$ python3 lang_frequency.py Doyle_A._Adventures_Of_Sherlock_Holmes.txt
+the - 5509
+and - 2803
+to - 2646
+of - 2626
+a - 2600
+i - 2540
+...
+
+```
+Запуск в Windows выполняется аналогичным образом.
+
+# Цели проекта
 
 The code is written for educational purposes. Training course for web-developers - [DEVMAN.org](https://devman.org)
