@@ -2,7 +2,9 @@ import sys
 import os
 from collections import Counter
 
+WORD_COUNT = 10
 PUNCTUATION_SET = ('.', ',', ':', '(', ')', '#', ' - ', '[',']', '"', '@', '—', ';')
+
 
 def load_data_from_file(filepath):
     with open(filepath, 'r') as file_object:
@@ -14,10 +16,10 @@ def load_data_from_file(filepath):
 
 def get_most_frequent_words(text):
     letter_text = text.lower()
-    for item in PUNCTUATION_SET:
-        letter_text.replace(item, ' ')
+    for symbol in PUNCTUATION_SET:
+        letter_text.replace(symbol, ' ')
     word_list = letter_text.split()
-    word_statistic = Counter(word_list).most_common(10)
+    word_statistic = Counter(word_list).most_common(WORD_COUNT)
     return word_statistic
 
 
