@@ -11,6 +11,13 @@ def get_most_frequent_words(text, output_word_count):
     word_statistic = Counter(word_list).most_common(output_word_count)
     return word_statistic
 
+def check_is_natural(input_string, default_value=10):
+    if not input_string.isdigit():
+        return default_value
+    if int(input_string) > 0:
+        return int(input_string)
+    else:
+        return default_value
 
 def parse_arguments():
     parser = argparse.ArgumentParser(description='The word frequency counter.')
@@ -19,7 +26,7 @@ def parse_arguments():
         help='a path to the text file where the script counts word frequency'
     )
     parser.add_argument(
-        '-c', '--output_word_count', type=int, default=10,
+        '-c', '--output_word_count', type=check_is_natural, default=10,
         help='how many words with statistic print as a result'
     )
     return parser.parse_args()
