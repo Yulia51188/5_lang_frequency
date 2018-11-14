@@ -1,34 +1,41 @@
-import sys
-import os
 from collections import Counter
-
-PUNCTUATION_SET = ('.', ',', ':', '(', ')', '#', ' - ', '[',']', '"', '@', '—', ';')
-
-def load_data_from_file(filepath):
-    with open(filepath, 'r') as file_object:
-        str_data = file_object.read()
-    if str_data == '':
-        return None
-    return str_data
+import argparse
+import string
 
 
-def get_most_frequent_words(text):
+def get_most_frequent_words(text, output_word_count):
     letter_text = text.lower()
-    for item in PUNCTUATION_SET:
-        letter_text.replace(item, ' ')
+    for symbol in string.punctuation:
+        letter_text.replace(symbol, ' ')
     word_list = letter_text.split()
-    word_statistic = Counter(word_list).most_common(10)
+    word_statistic = Counter(word_list).most_common(output_word_count)
     return word_statistic
+
+def check_is_natural(input_string, default_value=10):
+    if not input_string.isdigit():
+        return default_value
+    if int(input_string) > 0:
+        return int(input_string)
+    else:
+        return default_value
+
+def parse_arguments():
+    parser = argparse.ArgumentParser(description='The word frequency counter.')
+    parser.add_argument(
+        'text_file', type=argparse.FileType(),
+        help='a path to the text file where the script counts word frequency'
+    )
+    parser.add_argument(
+        '-c', '--output_word_count', type=check_is_natural, default=10,
+        help='how many words with statistic print as a result'
+    )
+    return parser.parse_args()
 
 
 if __name__ == '__main__':
-    if not len(sys.argv) > 1:
-        exit('No filepath received as argument')
-    if not os.path.exists(sys.argv[1]):
-        exit("File doesn't exist")
-    text = load_data_from_file(sys.argv[1])
-    if text is None:
-        exit("Can't read text from file")
-    for word_stat in get_most_frequent_words(text):
-        print('{word} - {count}'.format(word=word_stat[0],
-                                        count=word_stat[1]))
+    args = parse_arguments()
+    text = args.text_file.read()
+    if text is '':
+        exit("The file is empty")
+    for word, frequency in get_most_frequent_words(text, args.output_word_count):
+        print('{word} - {frequency}'.format(word=word, frequency=frequency))
